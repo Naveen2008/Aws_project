@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Klarrio Assignment</title>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+    <script></script>
+    <style>
+      body {
+        padding: 50px 100px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      #container {
+        text-align: center;
+        background-color: grey;
+        padding: 50px;
+      }
+
+      .input-div {
+        display: inline-block;
+      }
+
+      .inp {
+        padding: 5px 10px;
+        margin: 10px;
+        font-size: 30px;
+        font-weight: bold;
+        width: 200px;
+        text-align: center;
+      }
+
+      label {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      button {
+        padding: 10px;
+      }
+
+      Table {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #eeeeee;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      Table td,
+      Table th {
+        border: 1px solid #ddd;
+        padding: 3px 3px;
+      }
+
+      Table th {
+        font-size: 15px;
+        font-weight: bold;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #1c6ea4;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Klarrio Data</h1>
+    <div id="container">
+      <form action="/api/employees/" method="post">
+        <div class="input-div">
+          <label for="name">Name</label> <br />
+          <input type="text" id="name" name="name" class="inp" />
+        </div>
+
+        <div class="input-div">
+          <label for="age">Age</label> <br />
+          <input type="text" id="age" name="age" class="inp" />
+        </div>
+        <br />
+        <button type="submit" id="btn">Submit</button>
+      </form>
+      <p></p>
+    </div>
+    <table id="tableData" class="table table-fixed">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody class="tbody"></tbody>
+    </table>
+
+    <script>
+      $(document).ready(() => {
+        $.ajax({
+          url: "/api/employees",
+          method: "GET",
+          success: function (response) {
+            console.log(Object.keys(response).length);
+            if (Object.keys(response).length > 0) {
+              for (
+                let index = 0;
+                index < Object.keys(response).length;
+                index++
+              ) {
+                var newRow = $("<tr>");
+                var cols = "";
+                cols += "<td> " + response[index].name + "</td>";
+                cols += "<td> " + response[index].age + "</td>";
+                newRow.append(cols);
+                $("#tableData tbody").append(newRow);
+              }
+            }
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
