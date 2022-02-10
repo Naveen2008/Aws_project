@@ -1,10 +1,10 @@
 const express = require("express");
 const employeeRoutes = require("./src/routes");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 app.use(express.urlencoded());
-app.use(express.json());
+// app.use(express.json());
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
